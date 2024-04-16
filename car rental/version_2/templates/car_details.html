@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.brand }} {{ car.model }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="car-details">
+            <h1>{{ car.brand }} {{ car.model }}</h1>
+            <br>
+            <br>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/' + car.brand.lower() + '_' + car.model.lower() + '.jpg') }}" alt="{{ car.brand }} {{ car.model }}" width="400">
+            </div>
+            <p>Year: {{ car.year }}</p>
+            <p>Price per day: ${{ car.price_per_day }}</p>
+            
+            
+            <label for="comments">Comments:</label><br>
+            <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+            <br>
+            <input type="radio" id="like" name="reaction" value="like">
+            <label for="like">Like</label>
+            <input type="radio" id="dislike" name="reaction" value="dislike">
+            <label for="dislike">Dislike</label>
+            <br>
+            <br>
+            <a href="{{ url_for('rent_car', car_id=car.id) }}" class="rent-button">Rent this car</a>
+        </div>
+    </div>
+</body>
+</html>

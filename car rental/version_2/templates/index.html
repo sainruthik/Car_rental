@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to our Car Rental Service</h2>
+        
+        <!-- Filter Form -->
+        <form action="{{ url_for('filter_cars') }}" method="post" class="filter-form">
+            <label for="category">Filter by Category:</label>
+            <select id="category" name="category">
+                <option value="">All</option>
+                <option value="Sedan">Sedan</option>
+                <option value="SUV">SUV</option>
+            </select>
+            <br>
+            
+            <label for="price-range">Price Range: <output for="price-range" id="price-value">$0</output></label>
+            <input type="range" id="price-range" name="price_range" min="0" max="200" step="10" value="0">
+            <br>
+            
+            <br>
+            <button type="submit">Filter</button>
+            <br>
+            <br>
+        </form>
+        
+        <!-- Car List -->
+        <ul>
+            {% for car in cars %}
+                <li class="car-item">
+                    {% if car.brand == "Ford" and car.model == "Fusion" %}
+                        <a href="{{ url_for('car_details', car_id=1) }}"> <!-- Change car_id to the ID of Toyota Corolla -->
+                    {% else %}
+                        <a href="{{ url_for('car_details', car_id=car.id) }}">
+                    {% endif %}
+                        <h3>{{ car.brand }} {{ car.model }}</h3>
+                        <img src="{{ url_for('static', filename='images/' + car.brand.lower() + '_' + car.model.lower() + '.jpg') }}" alt="{{ car.brand }} {{ car.model }}" width="200">
+                        <p>{{ car.category }}</p>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        // Update price value display
+        const priceRange = document.getElementById('price-range');
+        const priceValue = document.getElementById('price-value');
+
+        priceRange.addEventListener('input', function() {
+            priceValue.textContent = '$' + this.value;
+        });
+    </script>
+</body>
+</html>

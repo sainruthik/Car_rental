@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Confirmation</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="confirmation">
+            <h1>Rent Confirmation</h1>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/' + car.brand.lower() + '_' + car.model.lower() + '.jpg') }}" alt="{{ car.brand }} {{ car.model }}" width="400">
+            </div>
+            <p>You have rented {{ car.brand }} {{ car.model }} for {{ days }} days.</p>
+            <p>Total Price: ${{ total_price }}</p>
+        </div>
+    </div>
+</body>
+</html>
